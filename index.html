@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>清晖影业 | 光影造梦·品质先锋</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a14;
+            color: #f0f0f0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 浅色模式 */
+        body.light-mode {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        body.light-mode .movie-card,
+        body.light-mode .contact-info,
+        body.light-mode .contact-form,
+        body.light-mode #commentList,
+        body.light-mode .comment-section > div > div {
+            background: #ffffff;
+            border: 1px solid #ddd;
+        }
+        body.light-mode .movie-desc {
+            color: #666;
+        }
+        body.light-mode .nav-links a,
+        body.light-mode .footer-col ul li a,
+        body.light-mode .copyright {
+            color: #333;
+        }
+        body.light-mode .about {
+            background: #e8e8e8;
+        }
+        body.light-mode .form-group input,
+        body.light-mode .form-group textarea {
+            background: #f0f0f0;
+            color: #333;
+        }
+        body.light-mode header {
+            background: rgba(245,245,245,0.95);
+        }
+        body.light-mode .comment-text {
+            color: #555;
+        }
+        body.light-mode footer {
+            background: #e0e0e0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a2a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e50914;
+            border-radius: 10px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #e50914, #b20710);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #ff1f2e, #e50914);
+        }
+
+        header {
+            background: rgba(10, 10, 20, 0.92);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(229, 9, 20, 0.3);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #fff, #e50914, #ffb347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #e50914;
+            transition: 0.3s;
+        }
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+        .menu-btn {
+            display: none;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Banner */
+        .banner {
+            position: relative;
+            height: 85vh;
+            min-height: 550px;
+            overflow: hidden;
+        }
+        .banner-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+        .banner-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        .banner-media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.45);
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .banner-content {
+            position: absolute;
+            bottom: 20%;
+            left: 8%;
+            max-width: 650px;
+            z-index: 10;
+            animation: fadeUp 0.8s ease-out;
+        }
+        .banner-content h1 {
+            font-size: 3.6rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .banner-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 15;
+            display: flex;
+            gap: 12px;
+        }
+        .banner-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .banner-dot.active-dot {
+            background: #e50914;
+            width: 28px;
+        }
+
+        /* 影片区 */
+        .movies {
+            padding: 5rem 0;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title h2 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #fff, #e50914);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .movie-card {
+            background: #13131f;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            border: 1px solid rgba(229,9,20,0.2);
+        }
+        .movie-card:hover {
+            transform: translateY(-12px);
+            border-color: #e50914;
+        }
+        .movie-img {
+            height: 380px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .movie-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        .movie-card:hover .movie-img img {
+            transform: scale(1.05);
+        }
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .movie-img:hover .play-overlay {
+            opacity: 1;
+        }
+        .play-overlay i {
+            font-size: 4rem;
+            color: white;
+        }
+        .movie-info {
+            padding: 1.5rem;
+        }
+        .movie-tag {
+            background: #e50914;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .movie-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .movie-desc {
+            color: #b9b9c3;
+            font-size: 0.85rem;
+            margin: 12px 0 18px;
+            line-height: 1.5;
+        }
+        .watch-video-btn {
+            background: none;
+            border: 1px solid #e50914;
+            color: #e50914;
+            padding: 6px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+        .watch-video-btn:hover {
+            background: #e50914;
+            color: white;
+        }
+
+        /* 关于区域 - 加图片 */
+        .about {
+            background: linear-gradient(145deg, #0f0f1c, #12121f);
+            padding: 5rem 0;
+        }
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+        }
+        .about-image {
+            flex: 1;
+            min-width: 280px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 30px -10px black;
+        }
+        .about-image img {
+            width: 100%;
+            display: block;
+            border-radius: 24px;
+        }
+        .about-text {
+            flex: 1;
+        }
+        .about-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #e50914;
+            padding-left: 20px;
+        }
+        .about-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .stat-item h4 {
+            font-size: 2.2rem;
+            color: #e50914;
+        }
+
+        /* 表单 */
+        .contact {
+            padding: 5rem 0;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+        .contact-info, .contact-form {
+            background: #13131f;
+            padding: 2rem;
+            border-radius: 28px;
+            border: 1px solid #25253a;
+        }
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+            margin: 1.8rem 0;
+            align-items: center;
+        }
+        .contact-item i {
+            font-size: 1.8rem;
+            color: #e50914;
+            width: 40px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            background: #1e1e2e;
+            border: 1px solid #2c2c44;
+            padding: 14px 18px;
+            border-radius: 40px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #e50914;
+        }
+        .toast-msg {
+            background: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            opacity: 0;
+            transition: 0.2s;
+            pointer-events: none;
+        }
+
+        /* 视频弹窗 */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-modal.active {
+            display: flex;
+        }
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .modal-content iframe {
+            width: 100%;
+            height: 500px;
+            display: block;
+            border: none;
+        }
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* 留言板 */
+        .comment-section {
+            padding: 3rem 0;
+        }
+        .comment-item {
+            border-bottom: 1px solid rgba(229,9,20,0.2);
+            padding: 1rem 0;
+        }
+        .comment-name {
+            color: #e50914;
+            font-weight: 600;
+        }
+        .comment-time {
+            font-size: 0.7rem;
+            color: #888;
+            margin-left: 1rem;
+        }
+        .comment-text {
+            color: #ddd;
+            margin-top: 0.5rem;
+        }
+        .delete-comment {
+            float: right;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .delete-comment:hover {
+            color: #e50914;
+        }
+
+        /* 回到顶部 */
+        #goTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #e50914;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 999;
+            border: none;
+        }
+        #goTopBtn:hover {
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: #070711;
+            padding: 3rem 0 1.5rem;
+            border-top: 1px solid #e5091433;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-col h4 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-col ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .footer-col ul li a:hover {
+            color: #e50914;
+        }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-links a {
+            background: #1e1e2e;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            background: #e50914;
+        }
+        .copyright {
+            text-align: center;
+            color: #fff;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: rgba(15,15,28,0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 2rem;
+                transition: 0.3s;
+                gap: 2rem;
+                z-index: 999;
+            }
+            .nav-links.active { left: 0; }
+            .banner { height: 70vh; }
+            .banner-content h1 { font-size: 2rem; }
+            .section-title h2 { font-size: 2rem; }
+            .modal-content iframe { height: 300px; }
+        }
+        @media (max-width: 560px) {
+            .movie-img { height: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">清晖影业 <span>· QINGHUI</span></div>
+            <button id="themeToggle" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; margin-left: auto; margin-right: 15px;">
+                <i class="fas fa-sun"></i>
+            </button>
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#movies">光影片库</a></li>
+                <li><a href="#about">品牌故事</a></li>
+                <li><a href="#contact">合作联络</a></li>
+                <li><a href="#comments">影迷留言</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Banner -->
+<section class="banner" id="home">
+    <div class="banner-slide active">
+        <img class="banner-media" src="images/哪吒.jpg" alt="哪吒">
+        <div class="banner-content">
+            <h1>哪吒之魔童闹海</h1>
+            <p>颠覆传统·再创神话巅峰 | 年度国漫巨献</p>
+            <a href="#" class="btn">立即购票 <i class="fas fa-ticket-alt"></i></a>
+        </div>
+    </div>
+    <div class="banner-slide">
+        <img class="banner-media" src="images/南京照相馆.jpg" alt="南京照相馆">
+        <div class="banner-content">
+            <h1>南京照相馆</h1>
+            <p>真实历史·不朽记忆 铭记民族的抗争</p>
+            <a href="#" class="btn">观看预告 <i class="fas fa-play"></i></a>
+        </div>
+    </div>
+    <div class="banner-slide">
+        <img class="banner-media" src="images/唐探1900.jpg" alt="唐探1900">
+        <div class="banner-content">
+            <h1>唐探1900</h1>
+            <p>悬疑再启·旧金山迷局 票房神话前传</p>
+            <a href="#" class="btn">预约悬疑 <i class="fas fa-magnifying-glass"></i></a>
+        </div>
+    </div>
+    <div class="banner-controls">
+        <div class="banner-dot active-dot" data-index="0"></div>
+        <div class="banner-dot" data-index="1"></div>
+        <div class="banner-dot" data-index="2"></div>
+    </div>
+</section>
+
+<!-- 影片区 -->
+<section class="movies" id="movies">
+    <div class="container">
+        <div class="section-title">
+            <h2>热映推荐</h2>
+            <p>匠心品质 · 引领潮流 | 点击图片或按钮观看预告片</p>
+        </div>
+        <!-- 搜索框 -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="display: inline-flex; max-width: 400px; width: 100%;">
+                <input type="text" id="searchMovie" placeholder="🔍 搜索电影名称..." style="flex:1; background:#1e1e2e; border:1px solid #2c2c44; padding:12px 20px; border-radius: 40px 0 0 40px; color:white; outline:none;">
+                <button id="searchBtn" style="background:#e50914; border:none; padding:0 20px; border-radius:0 40px 40px 0; color:white; cursor:pointer;"><i class="fas fa-search"></i></button>
+            </div>
+            <button id="resetSearch" style="background:none; border:none; color:#e50914; margin-top:10px; cursor:pointer;">显示全部</button>
+        </div>
+        <div class="movies-grid">
+            <!-- 内幕 -->
+            <div class="movie-card" data-title="内幕">
+                <div class="movie-img" data-video="BV1Rr2jBHEyp" data-bvid="BV1Rr2jBHEyp">
+                    <img src="images/内幕.jpg" alt="内幕">
+                    <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                </div>
+                <div class="movie-info">
+                    <span class="movie-tag">警匪/悬疑</span>
+                    <h3>内幕</h3>
+                    <p class="movie-desc">郭富城×吴镇宇，两亿善款失踪背后惊天黑幕。</p>
+                    <button class="watch-video-btn" data-bvid="BV1Rr2jBHEyp" data-title="内幕">🎬 观看预告片</button>
+                </div>
+            </div>
+            <!-- 酱园弄 -->
+            <div class="movie-card" data-title="酱园弄">
+                <div class="movie-img" data-video="BV1abM9zrEyf" data-bvid="BV1abM9zrEyf">
+                    <img src="images/酱园弄.jpg" alt="酱园弄">
+                    <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                </div>
+                <div class="movie-info">
+                    <span class="movie-tag">民国/犯罪</span>
+                    <h3>酱园弄</h3>
+                    <p class="movie-desc">章子怡领衔，民国奇案，杀夫悬疑震撼银幕。</p>
+                    <button class="watch-video-btn" data-bvid="BV1abM9zrEyf" data-title="酱园弄">🎬 观看预告片</button>
+                </div>
+            </div>
+            <!-- 疯狂动物城2 -->
+            <div class="movie-card" data-title="疯狂动物城2">
+                <div class="movie-img" data-video="BV1pCyqB9EYz" data-bvid="BV1pCyqB9EYz">
+                    <img src="images/疯狂动物城2.jpg" alt="疯狂动物城2">
+                    <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                </div>
+                <div class="movie-info">
+                    <span class="movie-tag">动画/喜剧</span>
+                    <h3>疯狂动物城2</h3>
+                    <p class="movie-desc">朱迪尼克回归，动物城新危机，欢乐再启程。</p>
+                    <button class="watch-video-btn" data-bvid="BV1pCyqB9EYz" data-title="疯狂动物城2">🎬 观看预告片</button>
+                </div>
+            </div>
+            <!-- 阿凡达3 -->
+            <div class="movie-card" data-title="阿凡达3火与烬">
+                <div class="movie-img" data-video="BV1yKnazcEH6" data-bvid="BV1yKnazcEH6">
+                    <img src="images/阿凡达3.jpg" alt="阿凡达3">
+                    <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                </div>
+                <div class="movie-info">
+                    <span class="movie-tag">科幻/冒险</span>
+                    <h3>阿凡达3:火与烬</h3>
+                    <p class="movie-desc">卡梅隆传奇续作，潘多拉海洋史诗新篇章。</p>
+                    <button class="watch-video-btn" data-bvid="BV1yKnazcEH6" data-title="阿凡达3">🎬 观看预告片</button>
+                </div>
+            </div>
+            <!-- 雄狮少年2 -->
+            <div class="movie-card" data-title="雄狮少年2">
+                <div class="movie-img" data-video="BV1pP4y157t6" data-bvid="BV1pP4y157t6">
+                    <img src="images/雄狮少年2.jpg" alt="雄狮少年2">
+                    <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                </div>
+                <div class="movie-info">
+                    <span class="movie-tag">现实/动画</span>
+                    <h3>雄狮少年2</h3>
+                    <p class="movie-desc">岭南少年沪漂传奇，热血与传承再燃。</p>
+                    <button class="watch-video-btn" data-bvid="BV1pP4y157t6" data-title="雄狮少年2">🎬 观看预告片</button>
+                </div>
+            </div>
+            <!-- 捕风追影 -->
+            <div class="movie-card" data-title="捕风追影">
+                <div class="movie-img" data-video="BV1SJtqzGEXG" data-bvid="BV1SJtqzGEXG">
+                    <img src="images/捕风捉影.jpg" alt="捕风追影">
+                    <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                </div>
+                <div class="movie-info">
+                    <span class="movie-tag">动作/犯罪</span>
+                    <h3>捕风追影</h3>
+                    <p class="movie-desc">成龙十年最佳，退休警探追凶燃炸银幕。</p>
+                    <button class="watch-video-btn" data-bvid="BV1SJtqzGEXG" data-title="捕风追影">🎬 观看预告片</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 关于区域（加了图片） -->
+<!-- 关于区域 -->
+<section class="about" id="about">
+    <div class="container">
+        <div class="section-title">
+            <h2>关于清晖</h2>
+            <p>光影匠人 · 创造不凡</p>
+        </div>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://picsum.photos/id/104/800/500" alt="清晖影业团队">
+            </div>
+            <div class="about-text">
+                <h3>清晖影业——电影未来的先行者</h3>
+                <p>成立至今，清晖影业已投资制作超过50部优秀电影，累计票房超30亿，斩获海内外奖项。</p>
+                <p>从剧本孵化到后期特效，拥有国内顶尖制作团队。持续孵化IP宇宙，打造属于中国人的英雄系列。</p>
+                <div class="about-stats">
+                    <div class="stat-item"><h4>50+</h4><p>荣誉出品</p></div>
+                    <div class="stat-item"><h4>32亿</h4><p>全球票房</p></div>
+                    <div class="stat-item"><h4>26项</h4><p>行业大奖</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 合作咨询 -->
+<section class="contact" id="contact">
+    <div class="container">
+        <div class="section-title">
+            <h2>合作咨询</h2>
+            <p>开启光影之旅，共创影视新纪元</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3><i class="fas fa-address-card"></i> 联络中心</h3>
+                <div class="contact-item"><i class="fas fa-map-pin"></i><div><h4>西安总部</h4><p>陕西省西安市未央区影视大厦22层</p></div></div>
+                <div class="contact-item"><i class="fas fa-phone-alt"></i><div><h4>商务专线</h4><p>400-888-1990</p></div></div>
+                <div class="contact-item"><i class="fas fa-envelope-open-text"></i><div><h4>官方邮箱</h4><p>business@qinghui.com</p></div></div>
+            </div>
+            <div class="contact-form">
+                <h3>即刻留言</h3>
+                <form id="contactForm">
+                    <div class="form-group"><label>姓名 *</label><input type="text" id="fullname" placeholder="您的称呼" required></div>
+                    <div class="form-group"><label>联系电话 *</label><input type="tel" id="phoneNum" placeholder="手机号码" required pattern="1[3-9]\d{9}"></div>
+                    <div class="form-group"><label>合作意向 *</label><textarea id="msgContent" rows="4" placeholder="影片投资 / 发行合作..." required></textarea></div>
+                    <button type="submit" class="btn">提交留言 <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 留言板 -->
+<section class="comment-section" id="comments">
+    <div class="container">
+        <div class="section-title">
+            <h2>影迷留言板</h2>
+            <p>分享你的观影感受</p>
+        </div>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div style="background: #13131f; padding: 2rem; border-radius: 28px; margin-bottom: 2rem;">
+                <div class="form-group"><label>昵称</label><input type="text" id="commentName" placeholder="你的昵称"></div>
+                <div class="form-group"><label>留言内容</label><textarea id="commentText" rows="3" placeholder="分享你的观影感受..."></textarea></div>
+                <button class="btn" id="submitCommentBtn">发表留言 <i class="fas fa-paper-plane"></i></button>
+            </div>
+            <div id="commentList" style="background: #13131f; padding: 2rem; border-radius: 28px;">
+                <h3><i class="fas fa-comments"></i> 最新留言</h3>
+                <div id="commentsContainer" style="text-align: center; color: #888; padding: 2rem;">暂无留言，快来抢沙发！</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>清晖影业</h4><p>专业影视投资·制作·发行一体化平台</p><div class="social-links"><a href="#"><i class="fab fa-weixin"></i></a><a href="#"><i class="fab fa-weibo"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div></div>
+            <div class="footer-col"><h4>快速链接</h4><ul><li><a href="#home">首页</a></li><li><a href="#movies">影片库</a></li><li><a href="#about">品牌故事</a></li><li><a href="#contact">合作通道</a></li></ul></div>
+            <div class="footer-col"><h4>业务板块</h4><ul><li><a href="#">影视制作</a></li><li><a href="#">全球发行</a></li><li><a href="#">IP衍生</a></li></ul></div>
+        </div>
+        <div class="copyright"><p>© 2025 清晖影业有限公司 | 光影构筑梦想，品质铸就辉煌</p></div>
+    </div>
+</footer>
+
+<div id="toastMsg" class="toast-msg"></div>
+<div id="goTopBtn"><i class="fas fa-arrow-up" style="color: white; font-size: 1.2rem;"></i></div>
+
+<!-- 视频弹窗 -->
+<div id="videoModal" class="video-modal">
+    <div class="modal-content">
+        <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
+        <iframe id="biliPlayer" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    // 主题切换
+    const themeToggle = document.getElementById('themeToggle');
+    let isDarkMode = true;
+    if(localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        isDarkMode = false;
+    }
+    themeToggle.addEventListener('click', () => {
+        if(isDarkMode) {
+            document.body.classList.add('light-mode');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            localStorage.setItem('theme', 'dark');
+        }
+        isDarkMode = !isDarkMode;
+    });
+
+    // 移动端菜单
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = menuBtn.querySelector('i');
+        if(navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            menuBtn.querySelector('i').classList.remove('fa-times');
+            menuBtn.querySelector('i').classList.add('fa-bars');
+        });
+    });
+
+    // Banner轮播
+    const slides = document.querySelectorAll('.banner-slide');
+    const dots = document.querySelectorAll('.banner-dot');
+    let currentIdx = 0;
+    let autoInterval;
+    function showSlide(index) {
+        slides.forEach((s, i) => s.classList.toggle('active', i === index));
+        dots.forEach((dot, i) => dot.classList.toggle('active-dot', i === index));
+        currentIdx = index;
+    }
+    function startAutoPlay() {
+        if(autoInterval) clearInterval(autoInterval);
+        autoInterval = setInterval(() => showSlide((currentIdx + 1) % slides.length), 5000);
+    }
+    dots.forEach((dot, idx) => dot.addEventListener('click', () => { showSlide(idx); startAutoPlay(); }));
+    startAutoPlay();
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if(targetId === "#") return;
+            const targetElem = document.querySelector(targetId);
+            if(targetElem) {
+                e.preventDefault();
+                targetElem.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // 回到顶部
+    const goTopBtn = document.getElementById('goTopBtn');
+    window.addEventListener('scroll', () => {
+        goTopBtn.style.opacity = window.scrollY > 300 ? '1' : '0';
+    });
+    goTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // 提示消息
+    const toast = document.getElementById('toastMsg');
+    function showMessage(text, isError = false) {
+        toast.style.backgroundColor = isError ? '#e74c3c' : '#2ecc71';
+        toast.textContent = text;
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 2500);
+    }
+
+    // 表单提交
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('fullname').value.trim();
+        const phone = document.getElementById('phoneNum').value.trim();
+        const msg = document.getElementById('msgContent').value.trim();
+        if(!name || !phone || !msg) return showMessage('请完整填写带*的字段', true);
+        if(!/^1[3-9]\d{9}$/.test(phone)) return showMessage('请填写正确的11位手机号码', true);
+        const btn = form.querySelector('button');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> 发送中...';
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-check"></i> 提交成功！';
+            showMessage('感谢联系！我们会尽快与您接洽 ✨');
+            form.reset();
+            setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 1500);
+        }, 800);
+    });
+
+    // 留言板
+    function loadComments() {
+        let comments = JSON.parse(localStorage.getItem('filmComments') || '[]');
+        const container = document.getElementById('commentsContainer');
+        if(comments.length === 0) {
+            container.innerHTML = '<div style="text-align: center; color: #888; padding: 2rem;">暂无留言，快来抢沙发！</div>';
+            return;
+        }
+        let html = '';
+        for(let i = comments.length - 1; i >= 0; i--) {
+            const c = comments[i];
+            html += `<div class="comment-item"><div class="comment-name"><i class="fas fa-user"></i> ${escapeHtml(c.name)}<span class="comment-time">${c.time}</span><span class="delete-comment" data-index="${i}"><i class="fas fa-trash-alt"></i> 删除</span></div><div class="comment-text">${escapeHtml(c.text)}</div></div>`;
+        }
+        container.innerHTML = html;
+        document.querySelectorAll('.delete-comment').forEach(btn => {
+            btn.addEventListener('click', function() {
+                let comments = JSON.parse(localStorage.getItem('filmComments') || '[]');
+                comments.splice(parseInt(this.getAttribute('data-index')), 1);
+                localStorage.setItem('filmComments', JSON.stringify(comments));
+                loadComments();
+                showMessage('留言已删除');
+            });
+        });
+    }
+    function escapeHtml(text) {
+        let div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    document.getElementById('submitCommentBtn')?.addEventListener('click', () => {
+        const name = document.getElementById('commentName').value.trim();
+        const text = document.getElementById('commentText').value.trim();
+        if(!name || !text) return showMessage('请填写昵称和留言内容', true);
+        let comments = JSON.parse(localStorage.getItem('filmComments') || '[]');
+        const now = new Date();
+        const timeStr = `${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${now.getMinutes().toString().padStart(2,'0')}`;
+        comments.push({ name, text, time: timeStr });
+        localStorage.setItem('filmComments', JSON.stringify(comments));
+        document.getElementById('commentName').value = '';
+        document.getElementById('commentText').value = '';
+        loadComments();
+        showMessage('留言发布成功！');
+    });
+    loadComments();
+
+    // 搜索功能
+    const searchInput = document.getElementById('searchMovie');
+    const searchBtn = document.getElementById('searchBtn');
+    const resetSearch = document.getElementById('resetSearch');
+    const movieCards = document.querySelectorAll('.movie-card');
+    function filterMovies() {
+        const keyword = searchInput.value.toLowerCase().trim();
+        let hasVisible = false;
+        movieCards.forEach(card => {
+            const title = card.querySelector('h3').innerText.toLowerCase();
+            const tag = card.querySelector('.movie-tag').innerText.toLowerCase();
+            if(keyword === '' || title.includes(keyword) || tag.includes(keyword)) {
+                card.style.display = 'block';
+                hasVisible = true;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        const moviesGrid = document.querySelector('.movies-grid');
+        let noResultMsg = document.getElementById('noResultMsg');
+        if(!hasVisible) {
+            if(!noResultMsg) {
+                noResultMsg = document.createElement('div');
+                noResultMsg.id = 'noResultMsg';
+                noResultMsg.style.textAlign = 'center';
+                noResultMsg.style.padding = '3rem';
+                noResultMsg.style.color = '#888';
+                noResultMsg.innerHTML = '<i class="fas fa-film"></i> 没有找到相关电影';
+                moviesGrid.parentElement.appendChild(noResultMsg);
+            }
+            moviesGrid.style.display = 'none';
+            noResultMsg.style.display = 'block';
+        } else {
+            moviesGrid.style.display = 'grid';
+            if(noResultMsg) noResultMsg.style.display = 'none';
+        }
+    }
+    searchBtn?.addEventListener('click', filterMovies);
+    searchInput?.addEventListener('keypress', (e) => { if(e.key === 'Enter') filterMovies(); });
+    resetSearch?.addEventListener('click', () => { searchInput.value = ''; filterMovies(); });
+
+    // ========== B站视频播放功能 ==========
+    const videoModal = document.getElementById('videoModal');
+    const biliPlayer = document.getElementById('biliPlayer');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    function playVideo(bvid, title) {
+        if(!bvid) {
+            showMessage('预告片链接获取失败', true);
+            return;
+        }
+        // B站嵌入播放器地址
+        const embedUrl = `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&autoplay=1&high_quality=1`;
+        biliPlayer.src = embedUrl;
+        videoModal.classList.add('active');
+        showMessage(`正在播放《${title}》预告片`);
+    }
+
+    function closeModal() {
+        biliPlayer.src = '';
+        videoModal.classList.remove('active');
+    }
+
+    // 绑定电影图片点击事件
+    document.querySelectorAll('.movie-img').forEach(img => {
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const bvid = img.getAttribute('data-bvid');
+            const title = img.getAttribute('data-title') || img.querySelector('img')?.alt || '电影';
+            if(bvid) playVideo(bvid, title);
+            else showMessage('预告片即将上线，敬请期待～');
+        });
+    });
+
+    // 绑定按钮点击事件
+    document.querySelectorAll('.watch-video-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const bvid = btn.getAttribute('data-bvid');
+            const title = btn.getAttribute('data-title') || '电影';
+            if(bvid) playVideo(bvid, title);
+            else showMessage('预告片即将上线，敬请期待～');
+        });
+    });
+
+    // 关闭弹窗
+    closeModalBtn?.addEventListener('click', closeModal);
+    videoModal?.addEventListener('click', (e) => { if(e.target === videoModal) closeModal(); });
+
+    // Banner按钮提示
+    document.querySelectorAll('.banner-content .btn, .movie-card .btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showMessage('更多精彩内容即将上线，敬请期待～');
+        });
+    });
+</script>
+</body>
+</html>
