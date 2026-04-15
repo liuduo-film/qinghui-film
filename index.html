@@ -21,7 +21,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* 浅色模式 */
         body.light-mode {
             background-color: #f5f5f5;
             color: #333;
@@ -29,8 +28,7 @@
         body.light-mode .movie-card,
         body.light-mode .contact-info,
         body.light-mode .contact-form,
-        body.light-mode #commentList,
-        body.light-mode .comment-section > div > div {
+        body.light-mode #commentList {
             background: #ffffff;
             border: 1px solid #ddd;
         }
@@ -154,7 +152,6 @@
             cursor: pointer;
         }
 
-        /* Banner */
         .banner {
             position: relative;
             height: 85vh;
@@ -219,7 +216,6 @@
             width: 28px;
         }
 
-        /* 影片区 */
         .movies {
             padding: 5rem 0;
         }
@@ -322,7 +318,6 @@
             color: white;
         }
 
-        /* 关于区域 - 加图片 */
         .about {
             background: linear-gradient(145deg, #0f0f1c, #12121f);
             padding: 5rem 0;
@@ -343,7 +338,6 @@
         .about-image img {
             width: 100%;
             display: block;
-            border-radius: 24px;
         }
         .about-text {
             flex: 1;
@@ -358,14 +352,12 @@
             display: flex;
             gap: 2rem;
             margin-top: 2rem;
-            flex-wrap: wrap;
         }
         .stat-item h4 {
             font-size: 2.2rem;
             color: #e50914;
         }
 
-        /* 表单 */
         .contact {
             padding: 5rem 0;
         }
@@ -427,7 +419,6 @@
             pointer-events: none;
         }
 
-        /* 视频弹窗 */
         .video-modal {
             display: none;
             position: fixed;
@@ -451,24 +442,26 @@
             border-radius: 20px;
             overflow: hidden;
         }
-        .modal-content iframe {
+        .modal-content video {
             width: 100%;
-            height: 500px;
+            max-height: 70vh;
             display: block;
-            border: none;
         }
         .close-modal {
             position: absolute;
-            top: -40px;
-            right: 0;
-            background: none;
+            top: 10px;
+            right: 15px;
+            background: rgba(0,0,0,0.5);
             border: none;
             color: white;
-            font-size: 2rem;
+            font-size: 24px;
             cursor: pointer;
+            z-index: 10;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
         }
 
-        /* 留言板 */
         .comment-section {
             padding: 3rem 0;
         }
@@ -499,7 +492,6 @@
             color: #e50914;
         }
 
-        /* 回到顶部 */
         #goTopBtn {
             position: fixed;
             bottom: 30px;
@@ -595,7 +587,7 @@
             .banner { height: 70vh; }
             .banner-content h1 { font-size: 2rem; }
             .section-title h2 { font-size: 2rem; }
-            .modal-content iframe { height: 300px; }
+            .modal-content video { max-height: 50vh; }
         }
         @media (max-width: 560px) {
             .movie-img { height: 280px; }
@@ -623,7 +615,6 @@
     </div>
 </header>
 
-<!-- Banner -->
 <section class="banner" id="home">
     <div class="banner-slide active">
         <img class="banner-media" src="images/哪吒.jpg" alt="哪吒">
@@ -656,14 +647,12 @@
     </div>
 </section>
 
-<!-- 影片区 -->
 <section class="movies" id="movies">
     <div class="container">
         <div class="section-title">
             <h2>热映推荐</h2>
             <p>匠心品质 · 引领潮流 | 点击图片或按钮观看预告片</p>
         </div>
-        <!-- 搜索框 -->
         <div style="text-align: center; margin-bottom: 2rem;">
             <div style="display: inline-flex; max-width: 400px; width: 100%;">
                 <input type="text" id="searchMovie" placeholder="🔍 搜索电影名称..." style="flex:1; background:#1e1e2e; border:1px solid #2c2c44; padding:12px 20px; border-radius: 40px 0 0 40px; color:white; outline:none;">
@@ -672,9 +661,8 @@
             <button id="resetSearch" style="background:none; border:none; color:#e50914; margin-top:10px; cursor:pointer;">显示全部</button>
         </div>
         <div class="movies-grid">
-            <!-- 内幕 -->
-            <div class="movie-card" data-title="内幕">
-                <div class="movie-img" data-video="BV1Rr2jBHEyp" data-bvid="BV1Rr2jBHEyp">
+            <div class="movie-card">
+                <div class="movie-img" data-video="images/neimu.mp4">
                     <img src="images/内幕.jpg" alt="内幕">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -682,12 +670,11 @@
                     <span class="movie-tag">警匪/悬疑</span>
                     <h3>内幕</h3>
                     <p class="movie-desc">郭富城×吴镇宇，两亿善款失踪背后惊天黑幕。</p>
-                    <button class="watch-video-btn" data-bvid="BV1Rr2jBHEyp" data-title="内幕">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/neimu.mp4">🎬 观看预告片</button>
                 </div>
             </div>
-            <!-- 酱园弄 -->
-            <div class="movie-card" data-title="酱园弄">
-                <div class="movie-img" data-video="BV1abM9zrEyf" data-bvid="BV1abM9zrEyf">
+            <div class="movie-card">
+                <div class="movie-img" data-video="images/jiangyuannong.mp4">
                     <img src="images/酱园弄.jpg" alt="酱园弄">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -695,12 +682,11 @@
                     <span class="movie-tag">民国/犯罪</span>
                     <h3>酱园弄</h3>
                     <p class="movie-desc">章子怡领衔，民国奇案，杀夫悬疑震撼银幕。</p>
-                    <button class="watch-video-btn" data-bvid="BV1abM9zrEyf" data-title="酱园弄">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/jiangyuannong.mp4">🎬 观看预告片</button>
                 </div>
             </div>
-            <!-- 疯狂动物城2 -->
-            <div class="movie-card" data-title="疯狂动物城2">
-                <div class="movie-img" data-video="BV1pCyqB9EYz" data-bvid="BV1pCyqB9EYz">
+            <div class="movie-card">
+                <div class="movie-img" data-video="images/dongwucheng2.mp4">
                     <img src="images/疯狂动物城2.jpg" alt="疯狂动物城2">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -708,12 +694,11 @@
                     <span class="movie-tag">动画/喜剧</span>
                     <h3>疯狂动物城2</h3>
                     <p class="movie-desc">朱迪尼克回归，动物城新危机，欢乐再启程。</p>
-                    <button class="watch-video-btn" data-bvid="BV1pCyqB9EYz" data-title="疯狂动物城2">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/dongwucheng2.mp4">🎬 观看预告片</button>
                 </div>
             </div>
-            <!-- 阿凡达3 -->
-            <div class="movie-card" data-title="阿凡达3火与烬">
-                <div class="movie-img" data-video="BV1yKnazcEH6" data-bvid="BV1yKnazcEH6">
+            <div class="movie-card">
+                <div class="movie-img" data-video="images/afanda.mp4">
                     <img src="images/阿凡达3.jpg" alt="阿凡达3">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -721,12 +706,11 @@
                     <span class="movie-tag">科幻/冒险</span>
                     <h3>阿凡达3:火与烬</h3>
                     <p class="movie-desc">卡梅隆传奇续作，潘多拉海洋史诗新篇章。</p>
-                    <button class="watch-video-btn" data-bvid="BV1yKnazcEH6" data-title="阿凡达3">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/afanda.mp4">🎬 观看预告片</button>
                 </div>
             </div>
-            <!-- 雄狮少年2 -->
-            <div class="movie-card" data-title="雄狮少年2">
-                <div class="movie-img" data-video="BV1pP4y157t6" data-bvid="BV1pP4y157t6">
+            <div class="movie-card">
+                <div class="movie-img" data-video="images/xssn.mp4">
                     <img src="images/雄狮少年2.jpg" alt="雄狮少年2">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -734,12 +718,11 @@
                     <span class="movie-tag">现实/动画</span>
                     <h3>雄狮少年2</h3>
                     <p class="movie-desc">岭南少年沪漂传奇，热血与传承再燃。</p>
-                    <button class="watch-video-btn" data-bvid="BV1pP4y157t6" data-title="雄狮少年2">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/xssn.mp4">🎬 观看预告片</button>
                 </div>
             </div>
-            <!-- 捕风追影 -->
-            <div class="movie-card" data-title="捕风追影">
-                <div class="movie-img" data-video="BV1SJtqzGEXG" data-bvid="BV1SJtqzGEXG">
+            <div class="movie-card">
+                <div class="movie-img" data-video="images/bpyz.mp4">
                     <img src="images/捕风捉影.jpg" alt="捕风追影">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -747,15 +730,13 @@
                     <span class="movie-tag">动作/犯罪</span>
                     <h3>捕风追影</h3>
                     <p class="movie-desc">成龙十年最佳，退休警探追凶燃炸银幕。</p>
-                    <button class="watch-video-btn" data-bvid="BV1SJtqzGEXG" data-title="捕风追影">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/bpyz.mp4">🎬 观看预告片</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 关于区域（加了图片） -->
-<!-- 关于区域 -->
 <section class="about" id="about">
     <div class="container">
         <div class="section-title">
@@ -764,7 +745,7 @@
         </div>
         <div class="about-content">
             <div class="about-image">
-                <img src="https://picsum.photos/id/104/800/500" alt="清晖影业团队">
+                <img src="https://placehold.co/800x500/1a1a2a/e50914?text=QingHui+Film" alt="清晖影业">
             </div>
             <div class="about-text">
                 <h3>清晖影业——电影未来的先行者</h3>
@@ -780,7 +761,6 @@
     </div>
 </section>
 
-<!-- 合作咨询 -->
 <section class="contact" id="contact">
     <div class="container">
         <div class="section-title">
@@ -807,7 +787,6 @@
     </div>
 </section>
 
-<!-- 留言板 -->
 <section class="comment-section" id="comments">
     <div class="container">
         <div class="section-title">
@@ -842,11 +821,10 @@
 <div id="toastMsg" class="toast-msg"></div>
 <div id="goTopBtn"><i class="fas fa-arrow-up" style="color: white; font-size: 1.2rem;"></i></div>
 
-<!-- 视频弹窗 -->
 <div id="videoModal" class="video-modal">
     <div class="modal-content">
-        <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
-        <iframe id="biliPlayer" src="" frameborder="0" allowfullscreen></iframe>
+        <button class="close-modal" id="closeModalBtn">✕</button>
+        <video id="modalVideo" controls></video>
     </div>
 </div>
 
@@ -1047,55 +1025,53 @@
     searchInput?.addEventListener('keypress', (e) => { if(e.key === 'Enter') filterMovies(); });
     resetSearch?.addEventListener('click', () => { searchInput.value = ''; filterMovies(); });
 
-    // ========== B站视频播放功能 ==========
+    // 视频播放功能
     const videoModal = document.getElementById('videoModal');
-    const biliPlayer = document.getElementById('biliPlayer');
+    const modalVideo = document.getElementById('modalVideo');
     const closeModalBtn = document.getElementById('closeModalBtn');
 
-    function playVideo(bvid, title) {
-        if(!bvid) {
-            showMessage('预告片链接获取失败', true);
+    function playVideo(videoUrl, title) {
+        if(!videoUrl) {
+            showMessage('预告片即将上线，敬请期待～');
             return;
         }
-        // B站嵌入播放器地址
-        const embedUrl = `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&autoplay=1&high_quality=1`;
-        biliPlayer.src = embedUrl;
+        modalVideo.src = videoUrl;
         videoModal.classList.add('active');
+        modalVideo.play().catch(e => {
+            showMessage(`点击播放《${title}》`);
+        });
         showMessage(`正在播放《${title}》预告片`);
     }
 
     function closeModal() {
-        biliPlayer.src = '';
+        modalVideo.pause();
+        modalVideo.src = '';
         videoModal.classList.remove('active');
     }
 
-    // 绑定电影图片点击事件
     document.querySelectorAll('.movie-img').forEach(img => {
         img.addEventListener('click', (e) => {
             e.stopPropagation();
-            const bvid = img.getAttribute('data-bvid');
-            const title = img.getAttribute('data-title') || img.querySelector('img')?.alt || '电影';
-            if(bvid) playVideo(bvid, title);
+            const videoUrl = img.getAttribute('data-video');
+            const title = img.querySelector('img')?.alt || '电影';
+            if(videoUrl) playVideo(videoUrl, title);
             else showMessage('预告片即将上线，敬请期待～');
         });
     });
 
-    // 绑定按钮点击事件
     document.querySelectorAll('.watch-video-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const bvid = btn.getAttribute('data-bvid');
+            const videoUrl = btn.getAttribute('data-video');
             const title = btn.getAttribute('data-title') || '电影';
-            if(bvid) playVideo(bvid, title);
+            if(videoUrl) playVideo(videoUrl, title);
             else showMessage('预告片即将上线，敬请期待～');
         });
     });
 
-    // 关闭弹窗
     closeModalBtn?.addEventListener('click', closeModal);
     videoModal?.addEventListener('click', (e) => { if(e.target === videoModal) closeModal(); });
 
-    // Banner按钮提示
     document.querySelectorAll('.banner-content .btn, .movie-card .btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
