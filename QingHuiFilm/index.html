@@ -12,78 +12,17 @@
             box-sizing: border-box;
             font-family: 'Poppins', 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
-
         body {
             background-color: #0a0a14;
             color: #f0f0f0;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            transition: background-color 0.3s, color 0.3s;
         }
-
-        /* 浅色模式 */
-        body.light-mode {
-            background-color: #f5f5f5;
-            color: #333;
-        }
-        body.light-mode .movie-card,
-        body.light-mode .contact-info,
-        body.light-mode .contact-form,
-        body.light-mode #commentList,
-        body.light-mode .comment-section > div > div,
-        body.light-mode .video-modal .modal-content {
-            background: #ffffff;
-            border: 1px solid #ddd;
-        }
-        body.light-mode .movie-desc,
-        body.light-mode .contact-item p {
-            color: #666;
-        }
-        body.light-mode .nav-links a,
-        body.light-mode .footer-col ul li a,
-        body.light-mode .copyright {
-            color: #333;
-        }
-        body.light-mode .about {
-            background: #e8e8e8;
-        }
-        body.light-mode .form-group input,
-        body.light-mode .form-group textarea {
-            background: #f0f0f0;
-            color: #333;
-        }
-        body.light-mode header {
-            background: rgba(245,245,245,0.95);
-        }
-        body.light-mode .comment-text {
-            color: #555;
-        }
-        body.light-mode footer {
-            background: #e0e0e0;
-        }
-        body.light-mode .footer-col h4,
-        body.light-mode .social-links a {
-            color: #333;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1a1a2a;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #e50914;
-            border-radius: 10px;
-        }
-
         .container {
             width: 90%;
             max-width: 1280px;
             margin: 0 auto;
         }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -97,13 +36,10 @@
             transition: all 0.3s;
             border: none;
             cursor: pointer;
-            font-size: 0.95rem;
         }
         .btn:hover {
             transform: translateY(-3px);
-            background: linear-gradient(135deg, #ff1f2e, #e50914);
         }
-
         header {
             background: rgba(10, 10, 20, 0.92);
             backdrop-filter: blur(12px);
@@ -135,21 +71,6 @@
             color: #fff;
             text-decoration: none;
             font-weight: 500;
-            position: relative;
-            padding: 5px 0;
-        }
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: #e50914;
-            transition: 0.3s;
-        }
-        .nav-links a:hover::before {
-            width: 100%;
         }
         .menu-btn {
             display: none;
@@ -159,8 +80,6 @@
             color: white;
             cursor: pointer;
         }
-
-        /* Banner */
         .banner {
             position: relative;
             height: 85vh;
@@ -202,7 +121,6 @@
         .banner-content h1 {
             font-size: 3.6rem;
             font-weight: 800;
-            margin-bottom: 1rem;
         }
         .banner-controls {
             position: absolute;
@@ -218,14 +136,11 @@
             background: rgba(255,255,255,0.5);
             border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s;
         }
         .banner-dot.active-dot {
             background: #e50914;
             width: 28px;
         }
-
-        /* 影片区 */
         .movies {
             padding: 5rem 0;
         }
@@ -321,13 +236,11 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 0.8rem;
-            transition: 0.2s;
         }
         .watch-video-btn:hover {
             background: #e50914;
             color: white;
         }
-
         .about {
             background: linear-gradient(145deg, #0f0f1c, #12121f);
             padding: 5rem 0;
@@ -338,13 +251,13 @@
             gap: 3rem;
             align-items: center;
         }
-        .about-video {
+        .about-image {
             flex: 1;
             min-width: 280px;
             border-radius: 24px;
             overflow: hidden;
         }
-        .about-video video {
+        .about-image img {
             width: 100%;
             display: block;
         }
@@ -366,7 +279,6 @@
             font-size: 2.2rem;
             color: #e50914;
         }
-
         .contact {
             padding: 5rem 0;
         }
@@ -409,10 +321,6 @@
             color: white;
             font-size: 0.9rem;
         }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #e50914;
-        }
         .toast-msg {
             background: #2ecc71;
             color: white;
@@ -427,8 +335,6 @@
             transition: 0.2s;
             pointer-events: none;
         }
-
-        /* 视频弹窗 */
         .video-modal {
             display: none;
             position: fixed;
@@ -454,20 +360,22 @@
         }
         .modal-content video {
             width: 100%;
+            max-height: 70vh;
             display: block;
         }
         .close-modal {
             position: absolute;
-            top: -40px;
-            right: 0;
-            background: none;
+            top: 10px;
+            right: 15px;
+            background: rgba(0,0,0,0.5);
             border: none;
             color: white;
-            font-size: 2rem;
+            font-size: 24px;
             cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
         }
-
-        /* 留言板 */
         .comment-section {
             padding: 3rem 0;
         }
@@ -494,11 +402,6 @@
             cursor: pointer;
             font-size: 0.8rem;
         }
-        .delete-comment:hover {
-            color: #e50914;
-        }
-
-        /* 回到顶部 */
         #goTopBtn {
             position: fixed;
             bottom: 30px;
@@ -516,10 +419,6 @@
             z-index: 999;
             border: none;
         }
-        #goTopBtn:hover {
-            transform: translateY(-3px);
-        }
-
         footer {
             background: #070711;
             padding: 3rem 0 1.5rem;
@@ -538,15 +437,9 @@
         .footer-col ul {
             list-style: none;
         }
-        .footer-col ul li {
-            margin-bottom: 0.5rem;
-        }
         .footer-col ul li a {
             color: #fff;
             text-decoration: none;
-        }
-        .footer-col ul li a:hover {
-            color: #e50914;
         }
         .social-links {
             display: flex;
@@ -564,15 +457,11 @@
             color: #fff;
             text-decoration: none;
         }
-        .social-links a:hover {
-            background: #e50914;
-        }
         .copyright {
             text-align: center;
             color: #fff;
             font-size: 0.8rem;
         }
-
         @media (max-width: 768px) {
             .menu-btn { display: block; }
             .nav-links {
@@ -595,9 +484,6 @@
             .banner-content h1 { font-size: 2rem; }
             .section-title h2 { font-size: 2rem; }
         }
-        @media (max-width: 560px) {
-            .movie-img { height: 280px; }
-        }
     </style>
 </head>
 <body>
@@ -606,9 +492,6 @@
     <div class="container">
         <nav class="navbar">
             <div class="logo">清晖影业 <span>· QINGHUI</span></div>
-            <button id="themeToggle" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; margin-left: auto; margin-right: 15px;">
-                <i class="fas fa-sun"></i>
-            </button>
             <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">首页</a></li>
@@ -621,14 +504,13 @@
     </div>
 </header>
 
-<!-- Banner -->
 <section class="banner" id="home">
     <div class="banner-slide active">
         <img class="banner-media" src="images/哪吒.jpg" alt="哪吒">
         <div class="banner-content">
             <h1>哪吒之魔童闹海</h1>
             <p>颠覆传统·再创神话巅峰 | 年度国漫巨献</p>
-            <a href="#" class="btn" id="buyTicketBtn">立即购票 <i class="fas fa-ticket-alt"></i></a>
+            <a href="#" class="btn">立即购票 <i class="fas fa-ticket-alt"></i></a>
         </div>
     </div>
     <div class="banner-slide">
@@ -636,7 +518,7 @@
         <div class="banner-content">
             <h1>南京照相馆</h1>
             <p>真实历史·不朽记忆 铭记民族的抗争</p>
-            <a href="#" class="btn" id="watchTrailerBtn">观看预告 <i class="fas fa-play"></i></a>
+            <a href="#" class="btn">观看预告 <i class="fas fa-play"></i></a>
         </div>
     </div>
     <div class="banner-slide">
@@ -654,7 +536,6 @@
     </div>
 </section>
 
-<!-- 影片区 + 搜索 -->
 <section class="movies" id="movies">
     <div class="container">
         <div class="section-title">
@@ -669,8 +550,9 @@
             <button id="resetSearch" style="background:none; border:none; color:#e50914; margin-top:10px; cursor:pointer;">显示全部</button>
         </div>
         <div class="movies-grid">
+            <!-- 内幕 -->
             <div class="movie-card">
-                <div class="movie-img" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="内幕">
+                <div class="movie-img" data-video="images/neimu.mp4">
                     <img src="images/内幕.jpg" alt="内幕">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -678,11 +560,12 @@
                     <span class="movie-tag">警匪/悬疑</span>
                     <h3>内幕</h3>
                     <p class="movie-desc">郭富城×吴镇宇，两亿善款失踪背后惊天黑幕。</p>
-                    <button class="watch-video-btn" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="内幕">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/neimu.mp4">🎬 观看预告片</button>
                 </div>
             </div>
+            <!-- 酱园弄 -->
             <div class="movie-card">
-                <div class="movie-img" data-video="https://www.w3schools.com/html/movie.mp4" data-title="酱园弄">
+                <div class="movie-img" data-video="images/jiangyuannong.mp4">
                     <img src="images/酱园弄.jpg" alt="酱园弄">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -690,11 +573,12 @@
                     <span class="movie-tag">民国/犯罪</span>
                     <h3>酱园弄</h3>
                     <p class="movie-desc">章子怡领衔，民国奇案，杀夫悬疑震撼银幕。</p>
-                    <button class="watch-video-btn" data-video="https://www.w3schools.com/html/movie.mp4" data-title="酱园弄">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/jiangyuannong.mp4">🎬 观看预告片</button>
                 </div>
             </div>
+            <!-- 疯狂动物城2 -->
             <div class="movie-card">
-                <div class="movie-img" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="疯狂动物城2">
+                <div class="movie-img" data-video="images/dongwucheng2.mp4">
                     <img src="images/疯狂动物城2.jpg" alt="疯狂动物城2">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -702,11 +586,12 @@
                     <span class="movie-tag">动画/喜剧</span>
                     <h3>疯狂动物城2</h3>
                     <p class="movie-desc">朱迪尼克回归，动物城新危机，欢乐再启程。</p>
-                    <button class="watch-video-btn" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="疯狂动物城2">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/dongwucheng2.mp4">🎬 观看预告片</button>
                 </div>
             </div>
+            <!-- 阿凡达3 -->
             <div class="movie-card">
-                <div class="movie-img" data-video="https://www.w3schools.com/html/movie.mp4" data-title="阿凡达3火与烬">
+                <div class="movie-img" data-video="images/afanda.mp4">
                     <img src="images/阿凡达3.jpg" alt="阿凡达3">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -714,11 +599,12 @@
                     <span class="movie-tag">科幻/冒险</span>
                     <h3>阿凡达3:火与烬</h3>
                     <p class="movie-desc">卡梅隆传奇续作，潘多拉海洋史诗新篇章。</p>
-                    <button class="watch-video-btn" data-video="https://www.w3schools.com/html/movie.mp4" data-title="阿凡达3">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/afanda.mp4">🎬 观看预告片</button>
                 </div>
             </div>
+            <!-- 雄狮少年2 -->
             <div class="movie-card">
-                <div class="movie-img" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="雄狮少年2">
+                <div class="movie-img" data-video="images/xssn.mp4">
                     <img src="images/雄狮少年2.jpg" alt="雄狮少年2">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -726,11 +612,12 @@
                     <span class="movie-tag">现实/动画</span>
                     <h3>雄狮少年2</h3>
                     <p class="movie-desc">岭南少年沪漂传奇，热血与传承再燃。</p>
-                    <button class="watch-video-btn" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="雄狮少年2">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/xssn.mp4">🎬 观看预告片</button>
                 </div>
             </div>
+            <!-- 捕风追影 -->
             <div class="movie-card">
-                <div class="movie-img" data-video="https://www.w3schools.com/html/movie.mp4" data-title="捕风追影">
+                <div class="movie-img" data-video="images/bpyz.mp4">
                     <img src="images/捕风捉影.jpg" alt="捕风追影">
                     <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
                 </div>
@@ -738,14 +625,13 @@
                     <span class="movie-tag">动作/犯罪</span>
                     <h3>捕风追影</h3>
                     <p class="movie-desc">成龙十年最佳，退休警探追凶燃炸银幕。</p>
-                    <button class="watch-video-btn" data-video="https://www.w3schools.com/html/movie.mp4" data-title="捕风追影">🎬 观看预告片</button>
+                    <button class="watch-video-btn" data-video="images/bpyz.mp4">🎬 观看预告片</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 关于 -->
 <section class="about" id="about">
     <div class="container">
         <div class="section-title">
@@ -753,14 +639,13 @@
             <p>光影匠人 · 创造不凡</p>
         </div>
         <div class="about-content">
-            <div class="about-video">
-                <video autoplay muted loop playsinline>
-                    <source src="https://cdn.pixabay.com/video/2019/05/23/23807-339464784_large.mp4" type="video/mp4">
-                </video>
+            <div class="about-image">
+                <img src="https://placehold.co/800x500/1a1a2a/e50914?text=QingHui+Film" alt="清晖影业">
             </div>
             <div class="about-text">
                 <h3>清晖影业——电影未来的先行者</h3>
-                <p>成立至今，清晖影业已投资制作超过50部优秀电影，累计票房超30亿。</p>
+                <p>成立至今，清晖影业已投资制作超过50部优秀电影，累计票房超30亿，斩获海内外奖项。</p>
+                <p>从剧本孵化到后期特效，拥有国内顶尖制作团队。持续孵化IP宇宙，打造属于中国人的英雄系列。</p>
                 <div class="about-stats">
                     <div class="stat-item"><h4>50+</h4><p>荣誉出品</p></div>
                     <div class="stat-item"><h4>32亿</h4><p>全球票房</p></div>
@@ -771,7 +656,6 @@
     </div>
 </section>
 
-<!-- 合作咨询 -->
 <section class="contact" id="contact">
     <div class="container">
         <div class="section-title">
@@ -798,7 +682,6 @@
     </div>
 </section>
 
-<!-- 留言板 -->
 <section class="comment-section" id="comments">
     <div class="container">
         <div class="section-title">
@@ -831,58 +714,21 @@
 </footer>
 
 <div id="toastMsg" class="toast-msg"></div>
-<div id="goTopBtn"><i class="fas fa-arrow-up" style="color: white; font-size: 1.2rem;"></i></div>
+<div id="goTopBtn"><i class="fas fa-arrow-up"></i></div>
 
-<!-- 视频弹窗 -->
 <div id="videoModal" class="video-modal">
     <div class="modal-content">
-        <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
+        <button class="close-modal" id="closeModalBtn">✕</button>
         <video id="modalVideo" controls></video>
     </div>
 </div>
 
 <script>
-    // 主题切换
-    const themeToggle = document.getElementById('themeToggle');
-    let isDarkMode = true;
-    if(localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-mode');
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        isDarkMode = false;
-    }
-    themeToggle.addEventListener('click', () => {
-        if(isDarkMode) {
-            document.body.classList.add('light-mode');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.body.classList.remove('light-mode');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            localStorage.setItem('theme', 'dark');
-        }
-        isDarkMode = !isDarkMode;
-    });
-
     // 移动端菜单
     const menuBtn = document.getElementById('menuBtn');
     const navLinks = document.getElementById('navLinks');
     menuBtn.addEventListener('click', () => {
         navLinks.classList.toggle('active');
-        const icon = menuBtn.querySelector('i');
-        if(navLinks.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
-    });
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            menuBtn.querySelector('i').classList.remove('fa-times');
-            menuBtn.querySelector('i').classList.add('fa-bars');
-        });
     });
 
     // Banner轮播
@@ -1015,39 +861,24 @@
                 card.style.display = 'none';
             }
         });
-        const moviesGrid = document.querySelector('.movies-grid');
-        let noResultMsg = document.getElementById('noResultMsg');
-        if(!hasVisible) {
-            if(!noResultMsg) {
-                noResultMsg = document.createElement('div');
-                noResultMsg.id = 'noResultMsg';
-                noResultMsg.style.textAlign = 'center';
-                noResultMsg.style.padding = '3rem';
-                noResultMsg.style.color = '#888';
-                noResultMsg.innerHTML = '<i class="fas fa-film"></i> 没有找到相关电影';
-                moviesGrid.parentElement.appendChild(noResultMsg);
-            }
-            moviesGrid.style.display = 'none';
-            noResultMsg.style.display = 'block';
-        } else {
-            moviesGrid.style.display = 'grid';
-            if(noResultMsg) noResultMsg.style.display = 'none';
-        }
     }
     searchBtn?.addEventListener('click', filterMovies);
     searchInput?.addEventListener('keypress', (e) => { if(e.key === 'Enter') filterMovies(); });
     resetSearch?.addEventListener('click', () => { searchInput.value = ''; filterMovies(); });
 
-    // ========== 视频播放功能 ==========
+    // 视频播放
     const videoModal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
     const closeModalBtn = document.getElementById('closeModalBtn');
 
     function playVideo(videoUrl, title) {
-        modalVideo.pause();
+        if(!videoUrl) {
+            showMessage('预告片即将上线，敬请期待～');
+            return;
+        }
         modalVideo.src = videoUrl;
         videoModal.classList.add('active');
-        modalVideo.play().catch(e => console.log('自动播放被阻止', e));
+        modalVideo.play().catch(e => showMessage(`点击播放《${title}》`));
         showMessage(`正在播放《${title}》预告片`);
     }
 
@@ -1057,39 +888,26 @@
         videoModal.classList.remove('active');
     }
 
-    // 点击电影图片播放
     document.querySelectorAll('.movie-img').forEach(img => {
         img.addEventListener('click', (e) => {
             e.stopPropagation();
             const videoUrl = img.getAttribute('data-video');
-            const title = img.getAttribute('data-title') || img.querySelector('img')?.alt || '电影';
+            const title = img.querySelector('img')?.alt || '电影';
             if(videoUrl) playVideo(videoUrl, title);
-            else showMessage('预告片即将上线，敬请期待～');
         });
     });
 
-    // 点击按钮播放
     document.querySelectorAll('.watch-video-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const videoUrl = btn.getAttribute('data-video');
             const title = btn.getAttribute('data-title') || '电影';
             if(videoUrl) playVideo(videoUrl, title);
-            else showMessage('预告片即将上线，敬请期待～');
         });
     });
 
-    // 关闭弹窗
     closeModalBtn?.addEventListener('click', closeModal);
     videoModal?.addEventListener('click', (e) => { if(e.target === videoModal) closeModal(); });
-
-    // Banner按钮提示
-    document.querySelectorAll('.banner-content .btn, .movie-card .btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            showMessage('更多精彩内容即将上线，敬请期待～');
-        });
-    });
 </script>
 </body>
 </html>
